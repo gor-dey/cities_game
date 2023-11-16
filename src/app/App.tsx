@@ -1,16 +1,15 @@
-import { GamePage } from "@pages";
 import { RootStoreProvider } from "@shared";
 import { rootStore } from "@shared";
-// import { LayoutProvider } from "./layout";
+import { LayoutProvider } from "./layout";
+import { RouterProvider } from "react-router";
+import { router } from "./router";
 
 export const App = () => {
   return (
-    // <LayoutProvider>
-
-    // {/* <StartingPage /> */}
-    <RootStoreProvider rootStore={rootStore}>
-      <GamePage />
-    </RootStoreProvider>
-    // </LayoutProvider>
+    <LayoutProvider>
+      <RootStoreProvider rootStore={rootStore}>
+        <RouterProvider router={router} fallbackElement={<p>Loading...</p>} />
+      </RootStoreProvider>
+    </LayoutProvider>
   );
 };

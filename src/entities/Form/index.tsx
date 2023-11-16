@@ -1,5 +1,5 @@
 import { useForm, SubmitHandler } from "react-hook-form";
-import { Button, useStore } from "@shared";
+import { Button, lastLetterFunc, useStore } from "@shared";
 import { observer } from "mobx-react-lite";
 
 type Inputs = {
@@ -8,7 +8,16 @@ type Inputs = {
 
 export const Form = observer(() => {
   const store = useStore();
-  const { setNewCity } = store.CityStore;
+  const { setNewCity, isYourAnswer, citiesList } = store.CityStore;
+
+  const placeholder =
+    citiesList.length === 0
+      ? "Напишите любой город, например: Где вы живете?"
+      : isYourAnswer
+      ? `Знаете город на букву "${lastLetterFunc(
+          citiesList[citiesList.length - 1].name!
+        ).toUpperCase()}"?`
+      : "Ожидаем ответ соперника...";
 
   const { register, handleSubmit, reset } = useForm<Inputs>();
   const onSubmit: SubmitHandler<Inputs> = (data) => {
@@ -17,17 +26,20 @@ export const Form = observer(() => {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      className="h-12 w-auto rounded px-4 bg-slate-100 flex justify-between items-center"
-    >
-      <input
-        {...register("inputText")}
-        required={true}
-        placeholder="Напишите любой город, например: Где вы живете?"
-        className="bg-slate-100 outline-none w-full"
-      />
-      <Button img="/images/icon.svg" />
-    </form>
+    <div className="px-2">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="h-12 w-auto rounded-lg px-2 bg-slate-100 flex justify-between items-center m-4"
+      >
+        <input
+          {...register("inputText")}
+          required={true}
+          placeholder={placeholder}
+          className="bg-slate-100 outline-none w-full"
+        />
+
+        <Button img="/images/icon.svg" />
+      </form>
+    </div>
   );
 });

@@ -12,3 +12,9 @@ export type City = {
   name: string | null;
   isYourAnswer: boolean;
 };
+
+export type FinalResultsType = {
+  lastCity: string | null;
+  isYouWin: boolean;
+  totalCount: number;
+};

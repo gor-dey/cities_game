@@ -1,8 +1,14 @@
 import { Form, GamePlace, Header } from "@entities";
-import { useTimer } from "@shared";
+import { useStore, useTimer } from "@shared";
+import { observer } from "mobx-react-lite";
+import { useNavigate } from "react-router-dom";
 
-export const Game = () => {
+export const Game = observer(() => {
+  const store = useStore();
+  const { setFinalResults, isYourAnswer } = store.CityStore;
+
   const timer = useTimer({ initialSeconds: 120, onTimerEnd: handleTimerEnd });
+  const navigate = useNavigate();
 
   const formatTime = (seconds: number) => {
     const minutes = Math.floor(seconds / 60);
@@ -11,14 +17,19 @@ export const Game = () => {
   };
 
   function handleTimerEnd() {
-    console.log("Timer has reached 0!");
+    setFinalResults();
+    navigate("/finish");
   }
+
+  const headerText = isYourAnswer
+    ? "Сейчас ваша очередь"
+    : "Сейчас очередь соперника";
 
   return (
     <div className="min-w-max">
-      <Header text="Сейчас ваша очередь" timer={formatTime(timer)} />
+      <Header text={headerText} timer={formatTime(timer)} />
       <GamePlace />
       <Form />
     </div>
   );
-};
+});

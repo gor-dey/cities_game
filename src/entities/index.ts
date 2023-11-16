@@ -1,4 +1,5 @@
-export { Header } from "./Header";
-export { RulesOfGame } from "./RulesOfGame";
-export { Form } from "./Form";
-export { GamePlace } from "./GamePlace";
+export * from "./Header";
+export * from "./RulesOfGame";
+export * from "./Form";
+export * from "./GamePlace";
+export * from "./Results";

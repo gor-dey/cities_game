@@ -1,2 +1,2 @@
-export { Button } from "./Button";
-export { AnswerList } from "./Answer";
+export * from "./Button";
+export * from "./Answer";

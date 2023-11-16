@@ -1,27 +1,25 @@
-# React + TypeScript + Vite
+# Awesome Cities
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Implemented a game called "Cities" using React, MobX, TypeScript, React Router, Tailwind CSS, and React-Hook-Form. 
 
-Currently, two official plugins are available:
+You have to take turns writing the names of cities to a pseudo AI opponent within a 2-minute timer. The one who writes the last word wins.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Installation and run:
 
-## Expanding the ESLint configuration
+      yarn
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+      yarn dev
 
-- Configure the top-level `parserOptions` property like this:
+===
+===
 
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
-```
+Реализована игра "Города" с использованием React, MobX, TypeScript, React Router, Tailwind CSS и React-Hook-Form. 
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+В игре необходимо по очереди писать названия городов псевдо-ИИ-сопернику в течение 2 минут. Побеждает тот, кто напишет последнее слово.
+
+###Установка и запуск:
+
+      yarn
+
+      yarn dev
+
