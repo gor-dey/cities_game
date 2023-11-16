@@ -1,0 +1,22 @@
+@keyframes borderAnimation {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+.header-container {
+  position: relative;
+}
+
+.border-animation {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 8px;
+  background-color: rgb(139 92 246);
+
+  animation: borderAnimation 120s linear;
+}
