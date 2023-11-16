@@ -1,15 +1,17 @@
+import { RouterProvider } from "react-router";
 import { RootStoreProvider } from "@shared";
 import { rootStore } from "@shared";
 import { LayoutProvider } from "./layout";
-import { RouterProvider } from "react-router";
 import { router } from "./router";
 
 export const App = () => {
   return (
-    <LayoutProvider>
-      <RootStoreProvider rootStore={rootStore}>
-        <RouterProvider router={router} fallbackElement={<p>Loading...</p>} />
-      </RootStoreProvider>
-    </LayoutProvider>
+    <RootStoreProvider rootStore={rootStore}>
+      <LayoutProvider>
+        <div style={{ width: "576px" }}>
+          <RouterProvider router={router} fallbackElement={<p>Loading...</p>} />
+        </div>
+      </LayoutProvider>
+    </RootStoreProvider>
   );
 };

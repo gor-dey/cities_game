@@ -1,5 +1,5 @@
-import { useStore } from "@shared";
 import { observer } from "mobx-react-lite";
+import { useStore } from "@shared";
 
 export const AnswerList = observer(() => {
   const store = useStore();

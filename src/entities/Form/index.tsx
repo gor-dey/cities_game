@@ -21,8 +21,9 @@ export const Form = observer(() => {
 
   const { register, handleSubmit, reset } = useForm<Inputs>();
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-    setNewCity({ name: data.inputText.trim(), isYourAnswer: true });
     reset();
+    if (!isYourAnswer) return;
+    setNewCity({ name: data.inputText.trim(), isYourAnswer: true });
   };
 
   return (
