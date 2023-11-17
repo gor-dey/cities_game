@@ -7,7 +7,7 @@ export const GamePlace = observer(() => {
   const { isYourAnswer } = store.CityStore;
 
   const scrollRef = useRef<HTMLDivElement>(null);
-  const scrollToBottom = () => {
+  const scrollToBottom = (): void => {
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 

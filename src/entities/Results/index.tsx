@@ -1,5 +1,5 @@
 import { observer } from "mobx-react-lite";
-import { useStore } from "@shared";
+import { ResultSpanType, useStore } from "@shared";
 
 export const Results = observer(() => {
   const store = useStore();
@@ -13,8 +13,9 @@ export const Results = observer(() => {
       </div>
     );
 
-  const isGoodResult = totalCount > 10;
-  const resultSpan = isGoodResult
+  const isGoodResult: boolean = totalCount > 10;
+
+  const resultSpan: ResultSpanType = isGoodResult
     ? "Очень неплохой результат!"
     : "В следующий раз будет лучше!";
 

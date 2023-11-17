@@ -5,7 +5,10 @@ interface UseTimerProps {
   onTimerEnd?: () => void;
 }
 
-export const useTimer = ({ initialSeconds, onTimerEnd }: UseTimerProps) => {
+export const useTimer = ({
+  initialSeconds,
+  onTimerEnd,
+}: UseTimerProps): number => {
   const [seconds, setSeconds] = useState(initialSeconds);
 
   useEffect(() => {

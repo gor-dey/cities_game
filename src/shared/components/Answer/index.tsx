@@ -5,6 +5,14 @@ export const AnswerList = observer(() => {
   const store = useStore();
   const { citiesList } = store.CityStore;
 
+  if (!citiesList.length) {
+    return (
+      <div className="flex flex-col items-center justify-center h-full">
+        <p className="text-gray-400">Первый участник вспоминает города...</p>
+      </div>
+    );
+  }
+
   return (
     <div className="flex flex-col gap-2">
       {citiesList.map((city, index) => (

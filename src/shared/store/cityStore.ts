@@ -26,7 +26,7 @@ export class CityStore {
 
   static instance: CityStore;
 
-  static mockOpponentCall = async (city: City) => {
+  static mockOpponentCall = async (city: City): Promise<void | null> => {
     const cityName = city.name || "";
     const { citiesList, isYourAnswer } = CityStore.instance;
 
@@ -38,14 +38,14 @@ export class CityStore {
     CityStore.instance.isYourAnswer = !isYourAnswer;
   };
 
-  static isCityExist = (cityName: string) => {
+  static isCityExist = (cityName: string): boolean => {
     const lowercaseCityName = cityName.toLowerCase();
     return citiesBase.some(
       (city) => city.city.toLowerCase() === lowercaseCityName
     );
   };
 
-  setNewCity = (city: City) => {
+  setNewCity = (city: City): City | null => {
     if (!city.name) return null;
     if (!CityStore.isCityExist(city.name)) return null;
     if (!isCyrillic(city.name)) return null;
@@ -73,7 +73,7 @@ export class CityStore {
     return city;
   };
 
-  setFinalResults = () => {
+  setFinalResults = (): void | null => {
     if (!this.citiesList.length) return null;
 
     this.finalResults.lastCity =
@@ -83,7 +83,7 @@ export class CityStore {
     this.finalResults.totalCount = this.citiesList.length;
   };
 
-  reset = () => {
+  reset = (): void => {
     this.newCity = { name: "", isYourAnswer: true };
     this.citiesList = [];
     this.isYourAnswer = true;

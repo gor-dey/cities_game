@@ -18,3 +18,9 @@ export type FinalResultsType = {
   isYouWin: boolean;
   totalCount: number;
 };
+
+export type HeaderTextType = "Сейчас ваша очередь" | "Сейчас очередь соперника";
+
+export type ResultSpanType =
+  | "Очень неплохой результат!"
+  | "В следующий раз будет лучше!";
