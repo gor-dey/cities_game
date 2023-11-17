@@ -37,6 +37,7 @@ export const Form = observer(() => {
           required={true}
           placeholder={placeholder}
           className="bg-slate-100 outline-none w-full"
+          autoFocus={true}
         />
 
         <Button img="/images/icon.svg" />
