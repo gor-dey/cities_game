@@ -1,4 +1,4 @@
-import { makeAutoObservable } from "mobx";
+import { action, makeObservable, observable } from "mobx";
 import {
   FinalResultsType,
   MockOpponentFunction,
@@ -9,81 +9,66 @@ import {
 } from "@shared";
 
 export class CityStore {
-  newCity: City = { name: "", isYourAnswer: true };
-  citiesList: City[] = [];
-  isYourAnswer: boolean = true;
-
-  finalResults: FinalResultsType = {
+  @observable newCity: City = { name: "", isYourAnswer: true };
+  @observable citiesList: City[] = [];
+  @observable isYourAnswer: boolean = true;
+  @observable finalResults: FinalResultsType = {
     lastCity: "",
     isYouWin: true,
     totalCount: 0,
   };
 
   constructor() {
-    makeAutoObservable(this);
-    CityStore.instance = this;
+    makeObservable(this);
   }
 
-  static instance: CityStore;
-
-  static mockOpponentCall = async (city: City): Promise<void | null> => {
-    const cityName = city.name || "";
-    const { citiesList, isYourAnswer } = CityStore.instance;
-
-    const opponentAnswer = await MockOpponentFunction(cityName, citiesList);
-
-    if (!opponentAnswer) return null;
-
-    citiesList.push(opponentAnswer);
-    CityStore.instance.isYourAnswer = !isYourAnswer;
-  };
-
-  static isCityExist = (cityName: string): boolean => {
-    const lowercaseCityName = cityName.toLowerCase();
-    return citiesBase.some(
-      (city) => city.city.toLowerCase() === lowercaseCityName
+  mockOpponentCall = async (city: City): Promise<void | null> => {
+    const opponentAnswer = await MockOpponentFunction(
+      city.name || "",
+      this.citiesList
     );
+    if (opponentAnswer) {
+      this.citiesList.push(opponentAnswer);
+      this.isYourAnswer = !this.isYourAnswer;
+    }
   };
 
-  setNewCity = (city: City): City | null => {
-    if (!city.name) return null;
-    if (!CityStore.isCityExist(city.name)) return null;
-    if (!isCyrillic(city.name)) return null;
+  isCityExist = (cityName: string): boolean =>
+    citiesBase.some(
+      (city) => city.city.toLowerCase() === cityName.toLowerCase()
+    );
 
-    if (this.citiesList.some((existingCity) => existingCity.name === city.name))
+  @action setNewCity = (city: City): City | null => {
+    if (!city.name || !this.isCityExist(city.name) || !isCyrillic(city.name))
       return null;
 
     const lastCity = this.citiesList[this.citiesList.length - 1];
 
-    if (lastCity) {
-      const lastLetterOfLastCity = lastLetterFunc(lastCity.name!);
-      const firstLetterOfNewCity = city.name[0].toLowerCase();
-
-      if (lastLetterOfLastCity !== firstLetterOfNewCity) {
-        return null;
-      }
+    if (
+      lastCity &&
+      lastLetterFunc(lastCity.name!) !== city.name[0].toLowerCase()
+    ) {
+      return null;
     }
 
     this.newCity = city;
     this.citiesList.push(city);
     this.isYourAnswer = !this.isYourAnswer;
-
-    CityStore.mockOpponentCall(city);
+    this.mockOpponentCall(city);
 
     return city;
   };
 
-  setFinalResults = (): void | null => {
+  @action setFinalResults = (): void | null => {
     if (!this.citiesList.length) return null;
 
-    this.finalResults.lastCity =
-      this.citiesList[this.citiesList.length - 1].name;
-    this.finalResults.isYouWin =
-      this.citiesList[this.citiesList.length - 1].isYourAnswer;
+    const lastCity = this.citiesList[this.citiesList.length - 1];
+    this.finalResults.lastCity = lastCity.name;
+    this.finalResults.isYouWin = lastCity.isYourAnswer;
     this.finalResults.totalCount = this.citiesList.length;
   };
 
-  reset = (): void => {
+  @action reset = (): void => {
     this.newCity = { name: "", isYourAnswer: true };
     this.citiesList = [];
     this.isYourAnswer = true;
